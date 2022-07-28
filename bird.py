@@ -75,19 +75,11 @@ def run_game():
             pause()
 
         # Колизии
-        if position_y >= 720:
+        if (position_y >= 720) or (position_y <= 0):
             pg.mixer.Sound.play(death)
             game_over()
 
-        if position_y <= 0:
-            pg.mixer.Sound.play(death)
-            game_over()
-
-        if collision(trumpet_array):
-            pg.mixer.Sound.play(death)
-            game_over()
-
-        if r_collision(reverse_array):
+        if (collision(trumpet_array)) or (r_collision(reverse_array)):
             pg.mixer.Sound.play(death)
             game_over()
 
@@ -184,81 +176,44 @@ class Reverse:
 
 # фунции создания труб
 def create_array(array):
-    choice = random.randrange(0, 3)
-    img = trumpet_bot[choice]
-    width_a = trumpet_option[choice * 2]
-    height_a = trumpet_option[choice * 2 + 1]
+    pos = [width, 150, 300, 450, 600]
 
-    array.append(Trumpets(width, height_a, width_a, img, 4))
+    for i in range (0, 5):
+        if i == 0:
+            choice = random.randrange(0, 3)
+            img = trumpet_bot[choice]
+            width_a = trumpet_option[choice * 2]
+            height_a = trumpet_option[choice * 2 + 1]
 
-    choice = random.randrange(0, 3)
-    img = trumpet_bot[choice]
-    width_a = trumpet_option[choice * 2]
-    height_a = trumpet_option[choice * 2 + 1]
+            array.append(Trumpets(width, height_a, width_a, img, 4))
+        else:
+            choice = random.randrange(0, 3)
+            img = trumpet_bot[choice]
+            width_a = trumpet_option[choice * 2]
+            height_a = trumpet_option[choice * 2 + 1]
 
-    array.append(Trumpets(width + 150, height_a, width_a, img, 4))
-
-    choice = random.randrange(0, 3)
-    img = trumpet_bot[choice]
-    width_a = trumpet_option[choice * 2]
-    height_a = trumpet_option[choice * 2 + 1]
-
-    array.append(Trumpets(width + 300, height_a, width_a, img, 4))
-
-    choice = random.randrange(0, 3)
-    img = trumpet_bot[choice]
-    width_a = trumpet_option[choice * 2]
-    height_a = trumpet_option[choice * 2 + 1]
-
-    array.append(Trumpets(width + 450, height_a, width_a, img, 4))
-
-    choice = random.randrange(0, 3)
-    img = trumpet_bot[choice]
-    width_a = trumpet_option[choice * 2]
-    height_a = trumpet_option[choice * 2 + 1]
-
-    array.append(Trumpets(width + 600 , height_a, width_a, img, 4))
+            array.append(Trumpets(width + pos[i], height_a, width_a, img, 4))
 
 def create_array_reverse(array):
-    choice_r = random.randrange(0, 3)
-    img_r = reverse_trumpet[choice_r]
-    width_r = reverse_trumpet_option[choice_r * 2]
-    height_r = reverse_trumpet_option[choice_r * 2 + 1]
-    col = h_reverse_trumbet[choice_r]
+    pos = [width, 150, 300, 450, 600]
 
-    array.append(Reverse(width, height_r, width_r, img_r, 4, col))
+    for i in range(0, 5):
+        if i == 0:
+            choice_r = random.randrange(0, 3)
+            img_r = reverse_trumpet[choice_r]
+            width_r = reverse_trumpet_option[choice_r * 2]
+            height_r = reverse_trumpet_option[choice_r * 2 + 1]
+            col = h_reverse_trumbet[choice_r]
 
-    choice_r = random.randrange(0, 3)
-    img_r = reverse_trumpet[choice_r]
-    width_r = reverse_trumpet_option[choice_r * 2]
-    height_r = reverse_trumpet_option[choice_r * 2 + 1]
-    col = h_reverse_trumbet[choice_r]
+            array.append(Reverse(width, height_r, width_r, img_r, 4, col))
+        else:
+            choice_r = random.randrange(0, 3)
+            img_r = reverse_trumpet[choice_r]
+            width_r = reverse_trumpet_option[choice_r * 2]
+            height_r = reverse_trumpet_option[choice_r * 2 + 1]
+            col = h_reverse_trumbet[choice_r]
 
-    array.append(Reverse(width + 150, height_r, width_r, img_r, 4, col))
-
-    choice_r = random.randrange(0, 3)
-    img_r = reverse_trumpet[choice_r]
-    width_r = reverse_trumpet_option[choice_r * 2]
-    height_r = reverse_trumpet_option[choice_r * 2 + 1]
-    col = h_reverse_trumbet[choice_r]
-
-    array.append(Reverse(width + 300, height_r, width_r, img_r, 4, col))
-
-    choice_r = random.randrange(0, 3)
-    img_r = reverse_trumpet[choice_r]
-    width_r = reverse_trumpet_option[choice_r * 2]
-    height_r = reverse_trumpet_option[choice_r * 2 + 1]
-    col = h_reverse_trumbet[choice_r]
-
-    array.append(Reverse(width + 450, height_r, width_r, img_r, 4, col))
-
-    choice_r = random.randrange(0, 3)
-    img_r = reverse_trumpet[choice_r]
-    width_r = reverse_trumpet_option[choice_r * 2]
-    height_r = reverse_trumpet_option[choice_r * 2 + 1]
-    col = h_reverse_trumbet[choice_r]
-
-    array.append(Reverse(width + 600, height_r, width_r, img_r, 4, col))
+            array.append(Reverse(width + pos[i], height_r, width_r, img_r, 4, col))
 
 # Поиск радиуса от последней трубы, чтобы заспавнить новую
 def find_radius(array):
